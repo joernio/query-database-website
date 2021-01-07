@@ -36,3 +36,7 @@ div.search-result {
 	margin-bottom: 1rem;
 	background: #efefef;
 }
+
+span.search-result-name {
+	font-size: 0.7rem;
+}

@@ -1,11 +1,18 @@
-import React  from 'react';
+import React, { useState }  from 'react';
 
 import {usePluginData} from '@docusaurus/useGlobalData';
+const lunr = require('lunr');
 
 const Results = (props) => {
 	const options = props.results.map(r => (
 		<div class="search-result">
-		{r.name} | {r.title}
+		<div>
+		<h4>{r.title}</h4>
+		<p>
+		{r.description}
+		</p>
+		</div>
+		<div><span class="search-result-name">{r.name}</span></div>
 		</div>
 	))
 
@@ -13,12 +20,21 @@ const Results = (props) => {
 }
 
 const Search = () => {
-	const pluginData = usePluginData('staticcode');
-	const results = pluginData.qdb;
+	var pluginData = usePluginData('staticcode');
+	var lunrIdx = lunr.Index.load(pluginData.lunrIdx);
+
+	const [results, setResults] = useState(pluginData.qdb);
+
+	const handleChange = (e) => {
+		const found = lunrIdx.search(e.target.value);
+		const refs = found.map(f => f.ref);
+		const filtered = pluginData.qdb.filter(q => refs.includes(q.name));
+		setResults(filtered)
+	}
 
 	return (
 	  <div class="search">
-		<input class="search" placeholder="Search for queries..." />
+		<input class="search" placeholder="Search for queries..." onChange={handleChange} />
 		<hr />
 		<Results results={results} />
 	  </div>
