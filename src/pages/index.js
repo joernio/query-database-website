@@ -64,7 +64,7 @@ function Home() {
       title={`${siteConfig.title}`}
       description="Joern Query Database">
       <main>
-	  <section class="search-section">
+	  <section className="search-section">
 		  <Search />
 	  </section>
       </main>

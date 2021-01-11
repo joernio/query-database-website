@@ -5,14 +5,14 @@ const lunr = require('lunr');
 
 const Results = (props) => {
 	const options = props.results.map(r => (
-		<div class="search-result">
+		<div className="search-result">
 		<div>
 		<h4>{r.title}</h4>
 		<p>
 		{r.description}
 		</p>
 		</div>
-		<div><span class="search-result-name">{r.name}</span></div>
+		<div><span className="search-result-name">{r.name}</span></div>
 		</div>
 	))
 
@@ -33,8 +33,8 @@ const Search = () => {
 	}
 
 	return (
-	  <div class="search">
-		<input class="search" placeholder="Search for queries..." onChange={handleChange} />
+	  <div className="search">
+		<input className="search" placeholder="Search for queries..." onChange={handleChange} />
 		<hr />
 		<Results results={results} />
 	  </div>
