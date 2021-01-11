@@ -1,18 +1,25 @@
 import React, { useState }  from 'react';
-
+import Code from '@site/src/components/Code';
 import {usePluginData} from '@docusaurus/useGlobalData';
 const lunr = require('lunr');
 
 const Results = (props) => {
+  const code = '# placeholder'
 	const options = props.results.map(r => (
 		<div className="search-result">
+		<div><span className="search-result-name">{r.name}</span></div>
 		<div>
 		<h4>{r.title}</h4>
 		<p>
 		{r.description}
-		</p>
+      </p>
+        Example code:
+        <Code language="js" code={code} />
+
+        CPGQL Query:
+        <Code language="js" code={code} />
 		</div>
-		<div><span className="search-result-name">{r.name}</span></div>
+		<div><span className="search-result-author">author: {r.author}</span></div>
 		</div>
 	))
 
