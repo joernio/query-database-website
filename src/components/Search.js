@@ -4,7 +4,6 @@ import {usePluginData} from '@docusaurus/useGlobalData';
 const lunr = require('lunr');
 
 const Results = (props) => {
-  const code = '# placeholder'
 	const options = props.results.map(r => (
 		<div className="search-result">
 		<div><span className="search-result-name">{r.name}</span></div>
@@ -13,11 +12,8 @@ const Results = (props) => {
 		<p>
 		{r.description}
       </p>
-        Example code:
-        <Code language="js" code={code} />
-
         CPGQL Query:
-        <Code language="js" code={code} />
+        <Code language="js" code={r.traversalAsString} />
 		</div>
 		<div><span className="search-result-author">author: {r.author}</span></div>
 		</div>
