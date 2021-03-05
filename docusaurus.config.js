@@ -18,6 +18,7 @@ module.exports = {
     colorMode: {
       defaultMode: 'light',
       disableSwitch: true,
+      respectPrefersColorScheme: false,
     },
     footer: {
       style: 'dark',
