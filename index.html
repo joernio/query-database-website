@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generator" content="Docusaurus v2.0.0-alpha.70">
+<link rel="alternate" type="application/rss+xml" href="/query-database-website/blog/rss.xml" title="Joern Query Database Blog RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/query-database-website/blog/atom.xml" title="Joern Query Database Blog Atom Feed"><title data-react-helmet="true">Joern Query Database | Joern Query Database</title><meta data-react-helmet="true" property="og:title" content="Joern Query Database | Joern Query Database"><meta data-react-helmet="true" name="description" content="Joern Query Database"><meta data-react-helmet="true" property="og:description" content="Joern Query Database"><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_locale" content="en"><meta data-react-helmet="true" name="docusaurus_tag" content="default"><link data-react-helmet="true" rel="shortcut icon" href="/query-database-website/img/favicon.ico"><script data-react-helmet="true">document.addEventListener("DOMContentLoaded",(function(){var n=document.getElementById("base-url-issue-banner-container");if(n){var e=window.location.pathname,t="/"===e.substr(-1)?e:e+"/";n.innerHTML=t}}))</script><link rel="stylesheet" href="/query-database-website/styles.f51ccd44.css">
+<link rel="preload" href="/query-database-website/styles.7288b055.js" as="script">
+<link rel="preload" href="/query-database-website/runtime~main.3cae976a.js" as="script">
+<link rel="preload" href="/query-database-website/main.2c072e6d.js" as="script">
+<link rel="preload" href="/query-database-website/common.0cdeff6f.js" as="script">
+<link rel="preload" href="/query-database-website/9.fb1d60f6.js" as="script">
+<link rel="preload" href="/query-database-website/c4f5d8e4.c49bd1a0.js" as="script">
+</head>
+<body>
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
+<div class="baseUrlIssueBanner_1-cE" style="border:solid red thick;background-color:#ffe6b3;margin:20px;padding:20px;font-size:20px"><p style="font-weight:bold;font-size:30px">Your Docusaurus site did not load properly.</p><p>A very common reason is a wrong site <a href="https://v2.docusaurus.io/docs/docusaurus.config.js/#baseurl" style="font-weight:bold">baseUrl configuration</a>.</p><p>Current configured baseUrl = <span style="font-weight:bold;color:red">/query-database-website/</span> </p><p>We suggest trying baseUrl = <span style="font-weight:bold;color:green" id="base-url-issue-banner-container"></span> </p></div><nav aria-label="Skip navigation links"><button type="button" tabindex="0" class="skipToContent_11B0">Skip to main content</button></nav><nav class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><a class="navbar__brand" href="/query-database-website/"><strong class="navbar__title">Joern Query Database</strong></a></div><div class="navbar__items navbar__items--right"></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div><div class="navbar-sidebar"><div class="navbar-sidebar__brand"><a class="navbar__brand" href="/query-database-website/"><strong class="navbar__title">Joern Query Database</strong></a></div><div class="navbar-sidebar__items"><div class="menu"><ul class="menu__list"></ul></div></div></div></nav><div class="main-wrapper"><main><section class="search-section"><div class="search"><input class="search" placeholder="Search for queries..."><hr><div><div class="search-result"><div><span class="search-result-name">too-nested</span></div><div><h4>Nesting level higher than 3</h4><p>This query identifies functions with a nesting level higher than 3</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method.internal.filter(_.depth(_.isControlStructure) &gt; n)</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">too-many-loops</span></div><div><h4>More than 4 loops</h4><p>This query identifies functions with more than 4 loops</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method.internal
+          .filter(
+            _.ast.isControlStructure
+              .parserTypeName(&quot;(For|Do|While).*&quot;)
+              .size &gt; n)</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">multiple-returns</span></div><div><h4>Multiple returns</h4><p>This query identifies functions with more than one return</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method.internal.filter(_.ast.isReturn.l.size &gt; 1)</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">too-long</span></div><div><h4>More than 1000 lines</h4><p>This query identifies functions that are more than 1000 lines long</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method.internal.filter(_.numberOfLines &gt; n)</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">too-high-complexity</span></div><div><h4>Cyclomatic complexity higher than 4</h4><p>This query identifies functions with a cyclomatic complexity higher than 4</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method.internal.filter(_.controlStructure.size &gt; n)</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">too-many-params</span></div><div><h4>Number of parameters larger than 4</h4><p>This query identifies functions with more than 4 formal parameters</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method.internal.filter(_.parameter.size &gt; n)</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">signed-left-shift</span></div><div><h4>Signed Shift May Cause Undefined Behavior</h4><p>
+Signed integer overflow is undefined behavior. Shifts of signed values to the
+left are very prone to overflow.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.call
+          .nameExact(Operators.shiftLeft, Operators.assignmentShiftLeft)
+          .where(_.argument(1).typ.fullNameExact(&quot;int&quot;, &quot;long&quot;))
+          .filterNot(_.argument.isLiteral.size == 2)</code></pre></div></div><div><span class="search-result-author">author: @maltek</span></div></div><div class="search-result"><div><span class="search-result-name">setgid-without-setgroups</span></div><div><h4>Process group membership is changed without setting ancillary groups first</h4><p>
+The set*gid system calls do not affect the ancillary groups a process belongs to.
+Changes to the group membership should therefore always be preceded by a call to setgroups.
+Otherwise the process may still be a secondary member of the group it tries to disavow.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg
+          .method(&quot;set(res|re|e|)gid&quot;)
+          .callIn
+          .whereNot(_.dominatedBy.isCall.name(&quot;setgroups&quot;))</code></pre></div></div><div><span class="search-result-author">author: @maltek</span></div></div><div class="search-result"><div><span class="search-result-name">setuid-without-setgid</span></div><div><h4>Process user ID is changed without changing groups first</h4><p>
+The set*uid system calls do not affect the groups a process belongs to. However, often
+there exists a group that is equivalent to a user (e.g. wheel or shadow groups are often
+equivalent to the root user).
+Group membership can only be changed by the root user.
+Changes to the user should therefore always be preceded by calls to set*gid and setgroups,
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg
+          .method(&quot;set(res|re|e|)uid&quot;)
+          .callIn
+          .whereNot(_.dominatedBy.isCall.name(&quot;set(res|re|e|)?gid&quot;))</code></pre></div></div><div><span class="search-result-author">author: @maltek</span></div></div><div class="search-result"><div><span class="search-result-name">call-to-getwd</span></div><div><h4>Dangerous function getwd() used</h4><p>
+ Avoid the `getwd` function, it does not check buffer lengths.
+ Use `getcwd` instead, as it checks the buffer size.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method(&quot;getwd&quot;).callIn</code></pre></div></div><div><span class="search-result-author">author: @ursachec</span></div></div><div class="search-result"><div><span class="search-result-name">call-to-strtok</span></div><div><h4>Dangerous function strtok() used</h4><p>
+ Avoid `strtok` function as it modifies the original string in place
+ and appends a null character after each token. This makes the
+ original string unsafe. Suggested alternative is `strtok_r` with
+ `saveptr`.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method(&quot;strtok&quot;).callIn</code></pre></div></div><div><span class="search-result-author">author: @tuxology</span></div></div><div class="search-result"><div><span class="search-result-name">call-to-strcpy</span></div><div><h4>Dangerous functions `strcpy` or `strncpy` used</h4><p>
+ Avoid `strcpy` or `strncpy` function. `strcpy` does not check buffer
+ lengths.
+ A possible mitigation could be `strncpy` which could prevent
+ buffer overflows but does not null-terminate strings leading to
+ memory corruption. A secure alternative (on BSD) is `strlcpy`.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method(&quot;(strcpy|strncpy)&quot;).callIn</code></pre></div></div><div><span class="search-result-author">author: @tuxology</span></div></div><div class="search-result"><div><span class="search-result-name">call-to-strcat</span></div><div><h4>Dangerous functions `strcat` or `strncat` used</h4><p>
+ Avoid `strcat` or `strncat` functions. These can be used insecurely
+ causing non null-termianted strings leading to memory corruption.
+ A secure alternative is `strcat_s`.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method(&quot;(strcat|strncat)&quot;).callIn</code></pre></div></div><div><span class="search-result-author">author: @tuxology</span></div></div><div class="search-result"><div><span class="search-result-name">call-to-scanf</span></div><div><h4>Insecure function scanf() used</h4><p>
+ Avoid `scanf` function as it can lead to reads beyond buffer
+ boundary and cause buffer overflows. A secure alternative is `fgets`.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method(&quot;scanf&quot;).callIn</code></pre></div></div><div><span class="search-result-author">author: @tuxology</span></div></div><div class="search-result"><div><span class="search-result-name">format-controlled-printf</span></div><div><h4>Non-constant format string passed to printf/sprintf/vsprintf</h4><p>
+ Avoid user controlled format strings like &quot;argv&quot; in printf, sprintf and vsprintf 
+ functions as they can cause memory corruption. Some secure
+ alternatives are `snprintf` and `vsnprintf`.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg
+          .method(&quot;printf&quot;)
+          .callIn
+          .whereNot(_.argument.order(1).isLiteral) ++
+          cpg
+            .method(&quot;(sprintf|vsprintf)&quot;)
+            .callIn
+            .whereNot(_.argument.order(2).isLiteral)</code></pre></div></div><div><span class="search-result-author">author: @tuxology</span></div></div><div class="search-result"><div><span class="search-result-name">call-to-gets</span></div><div><h4>Dangerous function gets() used</h4><p>
+ Avoid `gets` function as it can lead to reads beyond buffer
+ boundary and cause
+ buffer overflows. Some secure alternatives are `fgets` and `gets_s`.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method(&quot;gets&quot;).callIn</code></pre></div></div><div><span class="search-result-author">author: @tuxology</span></div></div><div class="search-result"><div><span class="search-result-name">free-follows-value-reuse</span></div><div><h4>A value that is free&#x27;d is reused without reassignment.</h4><p>
+A value is used after being free&#x27;d in a path that leads to it
+without reassignment.
+
+Modeled after CVE-2019-18903.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.method
+          .name(&quot;(.*_)?free&quot;)
+          .filter(_.parameter.size == 1)
+          .callIn
+          .where(_.argument(1).isIdentifier)
+          .flatMap(f =&gt; {
+            val freedIdentifierCode = f.argument(1).code
+            val postDom = f.postDominatedBy.toSet
+
+            val assignedPostDom = postDom.isIdentifier
+              .where(_.inAssignment)
+              .codeExact(freedIdentifierCode)
+              .flatMap(id =&gt; id ++ id.postDominatedBy)
+
+            postDom
+              .removedAll(assignedPostDom)
+              .isIdentifier
+              .codeExact(freedIdentifierCode)
+          })</code></pre></div></div><div><span class="search-result-author">author: @maltek</span></div></div><div class="search-result"><div><span class="search-result-name">free-returned-value</span></div><div><h4>A value that is returned through a parameter is free&#x27;d in a path</h4><p>
+The function sets a field of a function parameter to a value of a local
+variable.
+This variable is then freed in some paths. Unless the value set in the
+function |parameter is overridden later on, the caller has access to the
+free&#x27;d memory, which is undefined behavior.
+
+Finds bugs like CVE-2019-18902.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        def outParams =
+          cpg.parameter
+            .typeFullName(&quot;.+\\*&quot;)
+            .whereNot(
+              _.referencingIdentifiers
+                .argumentIndex(1)
+                .inCall
+                .nameExact(Operators.assignment, Operators.addressOf))
+
+        def assignedValues =
+          outParams.referencingIdentifiers
+            .argumentIndex(1)
+            .inCall
+            .nameExact(Operators.indirectFieldAccess,
+                       Operators.indirection,
+                       Operators.indirectIndexAccess)
+            .argumentIndex(1)
+            .inCall
+            .nameExact(Operators.assignment)
+            .argument(2)
+            .isIdentifier
+
+        def freeAssigned =
+          assignedValues
+            .map(
+              id =&gt;
+                (id,
+                 id.refsTo
+                   .flatMap {
+                     case p: MethodParameterIn =&gt; p.referencingIdentifiers
+                     case v: Local             =&gt; v.referencingIdentifiers
+                   }
+                   .inCall
+                   .name(&quot;(.*_)?free&quot;)))
+
+        freeAssigned
+          .filter {
+            case (id, freeCall) =&gt; freeCall.dominatedBy.exists(_ == id)
+          }
+          .flatMap(_._1)</code></pre></div></div><div><span class="search-result-author">author: @maltek</span></div></div><div class="search-result"><div><span class="search-result-name">free-field-no-reassign</span></div><div><h4>A field of a parameter is free&#x27;d and not reassigned on all paths</h4><p>
+ The function is able to modify a field of a structure passed in by
+ the caller. It frees this field and does not guarantee that on
+ all paths to the exit, the field is reassigned. If any
+ caller now accesses the field, then it accesses memory that is no
+ longer allocated. We also check that the function does not free
+ or clear the entire structure, as in that case, it is unlikely that the
+ passed in structure will be used again.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        val freeOfStructField = cpg
+          .method(&quot;free&quot;)
+          .callIn
+          .where(
+            _.argument(1)
+              .isCallTo(&quot;&lt;operator&gt;.*[fF]ieldAccess.*&quot;)
+              .filter(x =&gt;
+                x.method.parameter.name.toSet.contains(x.argument(1).code))
+          )
+          .whereNot(_.argument(1).isCall.argument(1).filter { struct =&gt;
+            struct.method.ast.isCall
+              .name(&quot;.*free$&quot;, &quot;memset&quot;, &quot;bzero&quot;)
+              .argument(1)
+              .codeExact(struct.code)
+              .nonEmpty
+          })
+          .l
+
+        freeOfStructField.argument(1).filter { arg =&gt;
+          arg.method.methodReturn.reachableBy(arg).nonEmpty
+        }</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">malloc-memcpy-int-overflow</span></div><div><h4>Dangerous copy-operation into heap-allocated buffer</h4><p>-</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        val src = cpg
+          .method(&quot;.*malloc$&quot;)
+          .callIn
+          .where(_.argument(1).arithmetics)
+          .l
+
+        cpg
+          .method(&quot;memcpy&quot;)
+          .callIn
+          .l
+          .filter { memcpyCall =&gt;
+            memcpyCall
+              .argument(1)
+              .reachableBy(src)
+              .where(
+                _.inAssignment.target.codeExact(memcpyCall.argument(1).code))
+              .whereNot(_.argument(1).codeExact(memcpyCall.argument(3).code))
+              .hasNext
+          }</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">copy-loop</span></div><div><h4>Copy loop detected</h4><p>
+For (buf, indices) pairs, determine those inside control structures (for, while, if ...)
+where any of the calls made outside of the body (block) are Inc operations. Determine
+the first argument of that Inc operation and check if they are used as indices for
+the write operation into the buffer.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg.assignment.target.isArrayAccess
+          .map { access =&gt;
+            (access.array, access.subscripts.code.toSet)
+          }
+          .filter {
+            case (buf, subscripts) =&gt;
+              val incIdentifiers = buf.inAst.isControlStructure.astChildren
+                .filterNot(_.isBlock)
+                .assignments
+                .target
+                .code
+                .toSet
+              (incIdentifiers &amp; subscripts).nonEmpty
+          }
+          .map(_._1)</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">strlen-truncation</span></div><div><h4>Truncation in assignment involving `strlen` call</h4><p>
+The return value of `strlen` is stored in a variable that is known
+to be of type `int` as opposed to `size_t`. `int` is only 32 bit
+wide on many 64 bit platforms, and thus, this may result in a
+truncation.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        cpg
+          .method(&quot;strlen&quot;)
+          .callIn
+          .inAssignment
+          .target
+          .evalType(&quot;(g?)int&quot;)</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">unchecked-read-recv-malloc</span></div><div><h4>Unchecked read/recv/malloc</h4><p>
+The return value of a read/recv/malloc call is not checked directly and
+the variable it has been assigned to (if any) does not
+occur in any check within the caller.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        implicit val noResolve: NoResolve.type = NoResolve
+        val callsNotDirectlyChecked = cpg
+          .method(&quot;(read|recv|malloc)&quot;)
+          .callIn
+          .filterNot { y =&gt;
+            val code = y.code
+            y.inAstMinusLeaf.isControlStructure.condition.code.exists { x =&gt;
+              x.contains(code)
+            }
+          }
+          .l
+
+        callsNotDirectlyChecked.filterNot { call =&gt;
+          val inConditions = call.method.controlStructure.condition.ast.l;
+          val checkedVars = inConditions.isIdentifier.name.toSet ++ inConditions.isCall.code.toSet;
+          val targets = call.inAssignment.target.code.toSet
+          (targets &amp; checkedVars).nonEmpty
+        }</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div><div class="search-result"><div><span class="search-result-name">strncpy-no-null-term</span></div><div><h4>strncpy is used and no null termination is nearby</h4><p>
+ Upon calling `strncpy` with a source string that is larger
+ than the destination buffer, the destination buffer is not
+ null-terminated by `strncpy` and there is no explicit
+ null termination nearby. This is unproblematic if the
+ buffer size is at least 1 larger than the size passed
+ to `strncpy`.
+</p>CPGQL Query:<div class="code"><pre><code class="language-js">cpg =&gt;
+        val allocations = cpg.method(&quot;.*malloc$&quot;).callIn.argument(1).l
+        cpg
+          .method(&quot;strncpy&quot;)
+          .callIn
+          .map { c =&gt;
+            (c.method, c.argument(1), c.argument(3))
+          }
+          .filter {
+            case (method, dst, size) =&gt;
+              dst.reachableBy(allocations).codeExact(size.code).nonEmpty &amp;&amp;
+                method.assignments
+                  .where(_.target.isArrayAccess.code(s&quot;${dst.code}.*\\[.*&quot;))
+                  .source
+                  .isLiteral
+                  .code(&quot;.*0.*&quot;)
+                  .isEmpty
+          }
+          .map(_._2)</code></pre></div></div><div><span class="search-result-author">author: @fabsx00</span></div></div></div></div></section></main></div><footer class="footer footer--dark"><div class="container"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2021 ShiftLeft, Inc.</div></div></div></footer></div>
+<script src="/query-database-website/styles.7288b055.js"></script>
+<script src="/query-database-website/runtime~main.3cae976a.js"></script>
+<script src="/query-database-website/main.2c072e6d.js"></script>
+<script src="/query-database-website/common.0cdeff6f.js"></script>
+<script src="/query-database-website/9.fb1d60f6.js"></script>
+<script src="/query-database-website/c4f5d8e4.c49bd1a0.js"></script>
+</body>
+</html>
