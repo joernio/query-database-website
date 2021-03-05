@@ -16,8 +16,8 @@ module.exports = {
       items: [],
     },
     colorMode: {
-	defaultMode: 'light',
-	disableSwitch: true,
+      defaultMode: 'light',
+      disableSwitch: true,
     },
     footer: {
       style: 'dark',
@@ -26,7 +26,7 @@ module.exports = {
     },
   },
   plugins: [
-	path.resolve(__dirname, 'plugins/staticcode')
+    path.resolve(__dirname, 'plugins/staticcode')
   ],
   presets: [
     [
