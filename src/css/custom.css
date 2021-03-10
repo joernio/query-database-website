@@ -48,3 +48,11 @@ span.search-result-author {
 span.search-result-tags {
 	font-size: 0.7rem;
 }
+
+div.search-filter {
+  margin-top: 1rem;
+}
+
+a.search-filter-selected {
+  font-weight: bold;
+}
