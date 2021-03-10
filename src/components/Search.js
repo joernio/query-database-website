@@ -16,6 +16,7 @@ const Results = (props) => {
         <Code language="js" code={r.traversalAsString} />
 		</div>
 		<div><span className="search-result-author">author: {r.author}</span></div>
+		<div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
 		</div>
 	))
 
