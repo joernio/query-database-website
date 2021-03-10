@@ -16,6 +16,7 @@ module.exports = function (context, options) {
 	      this.field('name')
 	      this.field('title')
 	      this.field('description')
+	      this.field('tags')
 
 	      qdbJson.forEach(function (doc) {
 		      this.add(doc)
