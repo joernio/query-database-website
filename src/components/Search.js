@@ -90,22 +90,22 @@ const Search = () => {
   }
 
   const handleFiltersChange = (checkedItems) => {
-    const checkedItemsNames = [...checkedItems.values()]
+    var checkedItemsNames = [];
+    checkedItems.forEach(function(value, key) {
+      checkedItemsNames.push(key.slice().replace("tags-", ""));
+    })
     triggerSearch(searchQuery, checkedItemsNames)
     setSelectedFilters(checkedItemsNames)
   }
 
-  const triggerSearch = (query, selectedFilters) => {
-    var searchOptions = {
+  const triggerSearch = (query, names) => {
+    const searchOptions = {
       per_page: 100,
       sort: 'name_asc',
       query: query,
-    }
-    if (selectedFilters.length > 0) {
-      console.log('[DEBUG] Did select filters: ' + selectedFilters)
-      searchOptions.filters = { tags: selectedFilters }
-    } else {
-      console.log('[DEBUG] Selected filters are empty')
+      filters: {
+        tags: names.slice()
+      }
     }
     const result = itemsJsIdx.search(searchOptions);
     setData({results: result.data.items, tags: result.data.aggregations.tags })
