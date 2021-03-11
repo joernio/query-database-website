@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   title: 'Joern Query Database',
   tagline: 'The central query database for the code analysis platform Joern',
-  url: 'https://docs.joern.io/',
+  url: 'https://joernio.github.io/',
   baseUrl: '/query-database-website/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
