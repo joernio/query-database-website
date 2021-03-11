@@ -21,8 +21,17 @@
 }
 
 div.search {
-	width: 80%;
-	margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: auto;
+}
+
+div.search-facets {
+  margin: 0 1rem 0 1rem;
+  background: #f1f1f1;
+}
+
+div.search-input {
 }
 
 input.search {
@@ -47,4 +56,28 @@ span.search-result-author {
 
 span.search-result-tags {
 	font-size: 0.7rem;
+}
+
+div.search-filter {
+  margin-top: 1rem;
+}
+
+a.search-filter-selected {
+  font-weight: bold;
+}
+
+.item-a {
+  grid-area: header;
+}
+.item-b {
+  grid-area: main;
+}
+.item-c {
+  grid-area: sidebar;
+}
+.item-d {
+  grid-area: footer;
+}
+
+.container {
 }
