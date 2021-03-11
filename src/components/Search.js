@@ -94,13 +94,16 @@ const Search = () => {
   }
 
   const triggerSearch = (query, selectedFilters) => {
-    const searchOptions = {
+    var searchOptions = {
       per_page: 100,
       sort: 'name_asc',
       query: query,
     }
     if (selectedFilters.length > 0) {
+      console.log('[DEBUG] Did select filters: ' + selectedFilters)
       searchOptions.filters = { tags: selectedFilters }
+    } else {
+      console.log('[DEBUG] Selected filters are empty')
     }
     const result = itemsJsIdx.search(searchOptions);
     const tagAggregation = result.data.aggregations.tags;
