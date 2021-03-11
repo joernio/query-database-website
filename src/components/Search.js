@@ -77,8 +77,10 @@ const Search = () => {
     searchableFields: ['name', 'title', 'description', 'tags']
   });
 
-  const [results, setResults] = useState(pluginData.qdb);
-  const [tagFilters, setTagFilters] = useState(itemsJsIdx.search({per_page: 100}).data.aggregations.tags);
+  const [data, setData] = useState({
+    results: pluginData.qdb,
+    tags: itemsJsIdx.search({per_page: 100}).data.aggregations.tags,
+  });
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -106,21 +108,18 @@ const Search = () => {
       console.log('[DEBUG] Selected filters are empty')
     }
     const result = itemsJsIdx.search(searchOptions);
-    const tagAggregation = result.data.aggregations.tags;
-    setTagFilters(tagAggregation)
-    const found = result.data.items;
-    setResults(found)
+    setData({results: result.data.items, tags: result.data.aggregations.tags })
   }
 
   return (
     <div className="search">
       <div className="search-facets">
-        <Filters tags={tagFilters} onChange={handleFiltersChange} />
+        <Filters tags={data.tags} onChange={handleFiltersChange} />
       </div>
       <div className="search-input">
         <input className="search" placeholder="Search for queries..." onChange={handleChange} />
         <hr />
-        <Results results={results} />
+        <Results results={data.results} />
       </div>
 
     </div>
