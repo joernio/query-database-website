@@ -78,7 +78,7 @@ const Search = () => {
   });
 
   const [results, setResults] = useState(pluginData.qdb);
-  const [tagFilters, setTagFilters] = useState({title: "Tags", name: "tags", position: 1, buckets: []});
+  const [tagFilters, setTagFilters] = useState(itemsJsIdx.search({per_page: 100}).data.aggregations.tags);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
