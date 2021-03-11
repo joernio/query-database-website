@@ -78,7 +78,7 @@ const Search = () => {
   });
 
   const [results, setResults] = useState(pluginData.qdb);
-  const [tagFilters, setTagFilters] = useState({title: "Tags", name: "tags", position: 1, buckets: []});
+  const [tagFilters, setTagFilters] = useState(itemsJsIdx.search({per_page: 100}).data.aggregations.tags);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -94,14 +94,15 @@ const Search = () => {
   }
 
   const triggerSearch = (query, selectedFilters) => {
-    const result = itemsJsIdx.search({
+    const searchOptions = {
       per_page: 100,
       sort: 'name_asc',
       query: query,
-      filters: {
-        tags: selectedFilters
-      }
-    });
+    }
+    if (selectedFilters.length > 0) {
+      searchOptions.filters = { tags: selectedFilters }
+    }
+    const result = itemsJsIdx.search(searchOptions);
     const tagAggregation = result.data.aggregations.tags;
     setTagFilters(tagAggregation)
     const found = result.data.items;
