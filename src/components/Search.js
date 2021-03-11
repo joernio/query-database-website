@@ -94,14 +94,15 @@ const Search = () => {
   }
 
   const triggerSearch = (query, selectedFilters) => {
-    const result = itemsJsIdx.search({
+    const searchOptions = {
       per_page: 100,
       sort: 'name_asc',
       query: query,
-      filters: {
-        tags: selectedFilters
-      }
-    });
+    }
+    if (selectedFilters.length > 0) {
+      searchOptions.filters = { tags: selectedFilters }
+    }
+    const result = itemsJsIdx.search(searchOptions);
     const tagAggregation = result.data.aggregations.tags;
     setTagFilters(tagAggregation)
     const found = result.data.items;
