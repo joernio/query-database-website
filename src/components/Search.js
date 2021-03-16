@@ -71,7 +71,8 @@ const Search = () => {
     aggregations: {
       tags: {
         title: 'Tags',
-        size: 20
+        size: 20,
+        conjunction: false,
       }
     },
     searchableFields: ['name', 'title', 'description', 'tags']
