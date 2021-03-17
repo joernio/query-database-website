@@ -40,6 +40,16 @@ const Filters = ({ tags, onChange, title, prefix }) => {
 }
 
 const Results = (props) => {
+  const cleanTraversal = (traversalAsString) => {
+    const lines = traversalAsString.split('\n')
+    lines.shift()
+    const whitespacePrefix = lines[0].match(/^\s*/)[0]
+    const replace = new RegExp("^" + whitespacePrefix, "g")
+    return lines.map(function(line) {
+      return line.replace(replace, "")
+    }).join('\n')
+  }
+
 	const options = props.results.map(r => (
 		<div className="search-result">
 		<div><span className="search-result-name">{r.name}</span></div>
@@ -49,7 +59,7 @@ const Results = (props) => {
 		{r.description}
       </p>
         CPGQL Query:
-        <Code language="js" code={r.traversalAsString} />
+        <Code language="js" code={cleanTraversal(r.traversalAsString)} />
 		</div>
 		<div><span className="search-result-author">author: {r.author}</span></div>
 		<div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
