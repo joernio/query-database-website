@@ -12,7 +12,7 @@ const Checkbox = ({ name, label, isChecked = false, onChange }) => (
   </div>
 );
 
-const Filters = ({ tags, onChange }) => {
+const Filters = ({ tags, onChange, title, prefix }) => {
   const [checkedItems, setCheckedItems] = useState(new Map())
 
   const handleChange = (e) => {
@@ -20,7 +20,7 @@ const Filters = ({ tags, onChange }) => {
     const isItemChecked = e.target.checked
     const updated = new Map(checkedItems)
     if (isItemChecked) {
-      updated.set(itemKey, itemKey.replace("tags-", ""))
+      updated.set(itemKey, itemKey.replace(prefix, ""))
     } else {
       updated.delete(itemKey)
     }
@@ -30,13 +30,13 @@ const Filters = ({ tags, onChange }) => {
 
   const checkboxes = tags.buckets.map(t => (
     <Checkbox
-      name={"tags-" + t.key}
+      name={prefix + t.key}
       label={t.key + " - " + t.doc_count}
-      isChecked={checkedItems.get("tags-" + t.key)}
+      isChecked={checkedItems.get(prefix + t.key)}
       onChange={handleChange} />
   ))
 
-  return <div><div>TAGS</div>{checkboxes}</div>
+  return <div><div>{title}</div>{checkboxes}</div>
 }
 
 const Results = (props) => {
@@ -73,6 +73,11 @@ const Search = () => {
         title: 'Tags',
         size: 20,
         conjunction: false,
+      },
+      language: {
+        title: 'Language',
+        size: 20,
+        conjunction: false,
       }
     },
     searchableFields: ['name', 'title', 'description', 'tags']
@@ -81,44 +86,79 @@ const Search = () => {
   const [data, setData] = useState({
     results: pluginData.qdb,
     tags: itemsJsIdx.search({per_page: 100}).data.aggregations.tags,
+    language: itemsJsIdx.search({per_page: 100}).data.aggregations.language,
   });
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleChange = (e) => {
+  const handleQueryChange = (e) => {
     triggerSearch(e.target.value, selectedFilters)
     setSearchQuery(e.target.value)
   }
 
-  const handleFiltersChange = (checkedItems) => {
-    var checkedItemsNames = [];
-    checkedItems.forEach(function(value, key) {
-      checkedItemsNames.push(key.slice().replace("tags-", ""));
-    })
-    triggerSearch(searchQuery, checkedItemsNames)
-    setSelectedFilters(checkedItemsNames)
+  const handleLanguageChange = (selectedItems) => {
+    handleFiltersChange(selectedItems, "language")
   }
 
-  const triggerSearch = (query, names) => {
+  const handleTagChange = (selectedItems) => {
+    handleFiltersChange(selectedItems, "tags")
+  }
+
+  const handleFiltersChange = (selectedItems, prefix) => {
+    var checkedTags = [];
+    selectedItems.forEach(function(value, key) {
+       checkedTags.push(key.slice().replace(prefix, ""));
+    })
+    var updated = JSON.parse(JSON.stringify(selectedFilters));
+    updated[prefix] = checkedTags;
+    triggerSearch(searchQuery, updated)
+    setSelectedFilters(updated);
+  }
+
+  const triggerSearch = (query, filterSelection) => {
+    var tagsSelection = [];
+    if (filterSelection["tags"] !== undefined) {
+      tagsSelection = filterSelection["tags"].slice();
+    }
+    var languageSelection = [];
+    if (filterSelection["language"] !== undefined) {
+      languageSelection = filterSelection["language"].slice();
+    }
     const searchOptions = {
       per_page: 100,
       sort: 'name_asc',
       query: query,
       filters: {
-        tags: names.slice()
+        tags: tagsSelection,
+        language: languageSelection,
       }
     }
     const result = itemsJsIdx.search(searchOptions);
-    setData({results: result.data.items, tags: result.data.aggregations.tags })
+    setData({
+      results: result.data.items,
+      tags: result.data.aggregations.tags,
+      language: result.data.aggregations.language,
+    })
   }
 
   return (
     <div className="search">
       <div className="search-facets">
-        <Filters tags={data.tags} onChange={handleFiltersChange} />
+        <Filters
+          tags={data.language}
+          onChange={handleLanguageChange}
+          title="LANGUAGE"
+          prefix="language"
+        />
+        <Filters
+          tags={data.tags}
+          onChange={handleTagChange}
+          title="TAGS"
+          prefix="tags"
+        />
       </div>
       <div className="search-input">
-        <input className="search" placeholder="Search for queries..." onChange={handleChange} />
+        <input className="search" placeholder="Search for queries..." onChange={handleQueryChange} />
         <hr />
         <Results results={data.results} />
       </div>
