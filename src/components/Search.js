@@ -40,7 +40,8 @@ const Filters = ({ tags, onChange, title, prefix }) => {
 }
 
 const CopyButton = ({ textAreaId }) => {
-  const [buttonText, setButtonText] = useState("COPY TO CLIPBOARD")
+  const initialText = "COPY TO CLIPBOARD"
+  const [buttonText, setButtonText] = useState(initialText)
 
   const handleButtonClick = (e, selectionId) => {
     var textArea = document.querySelector("#" + selectionId)
@@ -52,6 +53,7 @@ const CopyButton = ({ textAreaId }) => {
     var didCopy = document.execCommand("copy")
     setButtonText("COPIED!")
     textArea.classList.add("hidden")
+    setTimeout(() => { setButtonText(initialText) }, 1000)
   }
 
   return (
