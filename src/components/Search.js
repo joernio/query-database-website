@@ -88,7 +88,7 @@ const Results = (props) => {
       </p>
         CPGQL Query:
         <Code language="js" code={cleanTraversal(r.traversalAsString)} queryName={r.name} />
-        <textarea className="hidden" value={"{" + cleanTraversal(r.traversalAsString) + "}"} id={r.name} />
+        <textarea className="hidden" value={"({" + cleanTraversal(r.traversalAsString) + "}).l"} id={r.name} />
 		</div>
 		<div><span className="search-result-author">author: {r.author}</span></div>
     <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
