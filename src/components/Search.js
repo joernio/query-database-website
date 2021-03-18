@@ -39,6 +39,32 @@ const Filters = ({ tags, onChange, title, prefix }) => {
   return <div><div>{title}</div>{checkboxes}</div>
 }
 
+const CopyButton = ({ textAreaId }) => {
+  const [buttonText, setButtonText] = useState("COPY TO CLIPBOARD")
+
+  const handleButtonClick = (e, selectionId) => {
+    var textArea = document.querySelector("#" + selectionId)
+    // Removing the hidden class and later adding it again on the text
+    // are is necessary because the clipboard API refuses to copy
+    // content from a DOM element that is not visible
+    textArea.classList.remove("hidden")
+    textArea.select()
+    var didCopy = document.execCommand("copy")
+    setButtonText("COPIED!")
+    textArea.classList.add("hidden")
+  }
+
+  return (
+    <div>
+      <button
+        className="search-result-copy"
+        onClick={(e) => handleButtonClick(e, textAreaId)}>
+        {buttonText}
+      </button>
+    </div>
+  )
+}
+
 const Results = (props) => {
   const cleanTraversal = (traversalAsString) => {
     const lines = traversalAsString.split('\n')
@@ -59,10 +85,12 @@ const Results = (props) => {
 		{r.description}
       </p>
         CPGQL Query:
-        <Code language="js" code={cleanTraversal(r.traversalAsString)} />
+        <Code language="js" code={cleanTraversal(r.traversalAsString)} queryName={r.name} />
+        <textarea className="hidden" value={cleanTraversal(r.traversalAsString)} id={r.name} />
 		</div>
 		<div><span className="search-result-author">author: {r.author}</span></div>
-		<div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
+    <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
+    <CopyButton textAreaId={r.name} />
 		</div>
 	))
 

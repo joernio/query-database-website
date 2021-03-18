@@ -81,3 +81,7 @@ a.search-filter-selected {
 
 .container {
 }
+
+.hidden {
+  display: none;
+}
