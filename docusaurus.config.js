@@ -23,7 +23,7 @@ module.exports = {
     footer: {
       style: 'dark',
       links: [],
-      copyright: ``,
+      copyright:  `Copyright © ${new Date().getFullYear()} The Joern Team.`,
     },
   },
   plugins: [
