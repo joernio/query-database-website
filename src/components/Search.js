@@ -1,7 +1,9 @@
+const itemsjs = require('itemsjs');
+
 import React, { useState }  from 'react';
 import Code from '@site/src/components/Code';
 import {usePluginData} from '@docusaurus/useGlobalData';
-const itemsjs = require('itemsjs');
+import { TextField } from '@material-ui/core';
 
 const Checkbox = ({ name, label, isChecked = false, onChange }) => (
   <div>
@@ -197,8 +199,8 @@ const Search = () => {
           prefix="tags"
         />
       </div>
-      <div className="search-input">
-        <input className="search" placeholder="Search for queries..." onChange={handleQueryChange} />
+        <div className="search-input">
+        <TextField id="standard-basic" label="Search for queries..." variant="outlined" margin="normal" fullWidth onChange={handleQueryChange} />
         <hr />
         <Results results={data.results} />
       </div>
