@@ -7,6 +7,11 @@
   --ifm-color-primary-lighter: rgb(102, 212, 189);
   --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-code-font-size: 95%;
+  --ifm-font-family-base: 'Helvetica', sans-serif;
+}
+
+h4 {
+  font-family: monospace;
 }
 
 .docusaurus-highlight-code-line {
@@ -17,7 +22,15 @@
 }
 
 .search-section {
-	padding-top: 5rem;
+	padding-top: 0rem;
+}
+
+nav.navbar {
+  display: none;
+}
+
+footer.footer {
+  display: none;
 }
 
 div.search {
@@ -27,8 +40,28 @@ div.search {
 }
 
 div.search-facets {
-  margin: 0 1rem 0 1rem;
+  margin: 0rem 1rem 0 1rem;
   background: #f1f1f1;
+  min-width: 14rem;
+  height: 96vh;
+  position: sticky;
+  top: 2rem;
+}
+
+div.filler {
+  display: block;
+  height: 2rem;
+  background: #fff;
+  position: sticky;
+  top: 0;
+}
+
+div.search-field {
+  position: sticky;
+  top: 2rem;
+  display:block;
+  background: #fff;
+  margin-bottom: 1rem;
 }
 
 div.search-input {
