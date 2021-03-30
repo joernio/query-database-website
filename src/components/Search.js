@@ -5,40 +5,73 @@ import Code from '@site/src/components/Code';
 import {usePluginData} from '@docusaurus/useGlobalData';
 import { TextField } from '@material-ui/core';
 
-const Checkbox = ({ name, label, isChecked = false, onChange }) => (
-  <div>
-    <label>
-      <input type="checkbox" name={name} checked={isChecked} onChange={onChange} />
-      {label}
-    </label>
-  </div>
-);
+import { makeStyles } from '@material-ui/core/styles';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
 
-const Filters = ({ tags, onChange, title, prefix }) => {
-  const [checkedItems, setCheckedItems] = useState(new Map())
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  formControl: {
+    margin: theme.spacing(3),
+    width: '100%'
+  },
+}));
 
-  const handleChange = (e) => {
-    const itemKey = e.target.name
-    const isItemChecked = e.target.checked
-    const updated = new Map(checkedItems)
-    if (isItemChecked) {
-      updated.set(itemKey, itemKey.replace(prefix, ""))
-    } else {
-      updated.delete(itemKey)
-    }
-    setCheckedItems(updated)
-    onChange(updated)
-  }
+const ShinyFilters = ({ filters, onChange }) => {
+  const actualData = {
+    language: filters.language.reduce((a, x) => ({...a, [x]: false}), {}),
+    tags: filters.tags.reduce((a, x) => ({...a, [x]: false}), {}),
+  };
 
-  const checkboxes = tags.buckets.map(t => (
-    <Checkbox
-      name={prefix + t.key}
-      label={t.key + " - " + t.doc_count}
-      isChecked={checkedItems.get(prefix + t.key)}
-      onChange={handleChange} />
-  ))
+  const classes = useStyles();
+  const [state, setState] = React.useState(actualData);
+  const { tags, language } = state;
 
-  return <div><div>{title}</div>{checkboxes}</div>
+  const handleChange = (event) => {
+    const nextState = {language: state.language, tags: {...state.tags, [event.target.name]: event.target.checked }};
+    onChange(nextState);
+    setState(nextState);
+  };
+
+  const handleLanguageChange = (event) => {
+    const nextState = {tags: state.tags, language: {...state.language, [event.target.name]: event.target.checked }};
+    onChange(nextState);
+    setState(nextState);
+  };
+
+  return (
+    <div>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Language</FormLabel>
+        <FormGroup>
+          {Object.entries(actualData.language).map(entry =>(
+            <FormControlLabel
+              control={<Checkbox checked={language[entry[0]]} onChange={handleLanguageChange} name={entry[0]} />}
+              label={entry[0]}
+            />
+          ))}
+        </FormGroup>
+      </FormControl>
+
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">Tags</FormLabel>
+        <FormGroup>
+          {Object.entries(actualData.tags).map(entry =>(
+            <FormControlLabel
+              control={<Checkbox checked={tags[entry[0]]} onChange={handleChange} name={entry[0]} />}
+              label={entry[0]}
+            />
+          ))}
+        </FormGroup>
+      </FormControl>
+    </div>
+  )
 }
 
 const CopyButton = ({ textAreaId }) => {
@@ -80,36 +113,36 @@ const Results = (props) => {
     }).join('\n')
   }
 
-	const options = props.results.map(r => (
-		<div className="search-result">
-		<div><span className="search-result-name">{r.name}</span></div>
-		<div>
-		<h4>{r.title}</h4>
-		<p>
-		{r.description}
-      </p>
+  const options = props.results.map(r => (
+    <div className="search-result">
+      <div><span className="search-result-name">{r.name}</span></div>
+      <div>
+        <h4>{r.title}</h4>
+        <p>
+          {r.description}
+        </p>
         CPGQL Query:
         <Code language="js" code={cleanTraversal(r.traversalAsString)} queryName={r.name} />
         <textarea className="hidden" value={"({" + cleanTraversal(r.traversalAsString) + "}).l"} id={r.name} />
-		</div>
-		<div><span className="search-result-author">author: {r.author}</span></div>
-    <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
-    <CopyButton textAreaId={r.name} />
-		</div>
-	))
+      </div>
+      <div><span className="search-result-author">author: {r.author}</span></div>
+      <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
+      <CopyButton textAreaId={r.name} />
+    </div>
+  ))
 
-	return <div>{options}</div>
+  return <div>{options}</div>
 }
 
 const Search = () => {
   var pluginData = usePluginData('staticcode');
   var itemsJsIdx = itemsjs(pluginData.qdb, {
-      sortings: {
-        name_asc: {
-          field: 'name',
-          order: 'asc'
-        }
-      },
+    sortings: {
+      name_asc: {
+        field: 'name',
+        order: 'asc'
+      }
+    },
     aggregations: {
       tags: {
         title: 'Tags',
@@ -125,12 +158,16 @@ const Search = () => {
     searchableFields: ['name', 'title', 'description', 'tags']
   });
 
+  const initialAggregations = itemsJsIdx.search({per_page: 100}).data.aggregations;
+  const initialFilters = {
+    language: initialAggregations.language.buckets.map((x) => { return x.key }),
+    tags: initialAggregations.tags.buckets.map((x) => { return x.key }),
+  }
+
   const [data, setData] = useState({
     results: pluginData.qdb,
-    tags: itemsJsIdx.search({per_page: 100}).data.aggregations.tags,
-    language: itemsJsIdx.search({per_page: 100}).data.aggregations.language,
   });
-  const [selectedFilters, setSelectedFilters] = useState({});
+  const [selectedFilters, setSelectedFilters] = useState({language: [], tags: []});
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleQueryChange = (e) => {
@@ -138,80 +175,59 @@ const Search = () => {
     setSearchQuery(e.target.value)
   }
 
-  const handleLanguageChange = (selectedItems) => {
-    handleFiltersChange(selectedItems, "language")
-  }
-
-  const handleTagChange = (selectedItems) => {
-    handleFiltersChange(selectedItems, "tags")
-  }
-
-  const handleFiltersChange = (selectedItems, prefix) => {
-    var checkedTags = [];
-    selectedItems.forEach(function(value, key) {
-       checkedTags.push(key.slice().replace(prefix, ""));
-    })
-    var updated = JSON.parse(JSON.stringify(selectedFilters));
-    updated[prefix] = checkedTags;
-    triggerSearch(searchQuery, updated)
-    setSelectedFilters(updated);
-  }
-
   const triggerSearch = (query, filterSelection) => {
-    var tagsSelection = [];
-    if (filterSelection["tags"] !== undefined) {
-      tagsSelection = filterSelection["tags"].slice();
-    }
-    var languageSelection = [];
-    if (filterSelection["language"] !== undefined) {
-      languageSelection = filterSelection["language"].slice();
-    }
     const searchOptions = {
       per_page: 100,
       sort: 'name_asc',
-      query: query,
-      filters: {
-        tags: tagsSelection,
-        language: languageSelection,
-      }
+      query: searchQuery,
+      filters: filterSelection
     }
     const result = itemsJsIdx.search(searchOptions);
     setData({
       results: result.data.items,
-      tags: result.data.aggregations.tags,
-      language: result.data.aggregations.language,
     })
+  }
+
+  const onShinyFilterChange = (state) => {
+    const mappedTags = Object.keys(state.tags).filter(key => {
+      return state.tags[key];
+    });
+    const mappedLanguage = Object.keys(state.language).filter(key => {
+      return state.language[key];
+    })
+
+    const selected = {
+      tags: mappedTags,
+      language: mappedLanguage
+    };
+
+    setSelectedFilters(selected)
+    triggerSearch(searchQuery, selected)
   }
 
   return (
     <div className="search-wrapper">
       <div className="filler"></div>
-    <div className="search">
-      <div className="search-facets">
-        <Filters
-          tags={data.language}
-          onChange={handleLanguageChange}
-          title="LANGUAGE"
-          prefix="language"
-        />
-        <Filters
-          tags={data.tags}
-          onChange={handleTagChange}
-          title="TAGS"
-          prefix="tags"
-        />
-            </div>
-      <div className="search-input">
-              <div className="search-field">
-        <TextField id="standard-basic" label="Search for queries..." variant="outlined" margin="normal" fullWidth onChange={handleQueryChange} />
-                </div>
-                    <div className="search-results">
-                      <Results results={data.results} />
-                        </div>
-      </div>
-
+      <div className="search">
+        <div className="search-facets">
+          <ShinyFilters filters={initialFilters} onChange={onShinyFilterChange} />
         </div>
+        <div className="search-input">
+          <div className="search-field">
+            <TextField
+              id="standard-basic"
+              label="Search for queries..."
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              onChange={handleQueryChange} />
           </div>
+          <div className="search-results">
+            <Results results={data.results} />
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
