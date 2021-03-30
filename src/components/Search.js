@@ -184,6 +184,8 @@ const Search = () => {
   }
 
   return (
+    <div className="search-wrapper">
+      <div className="filler"></div>
     <div className="search">
       <div className="search-facets">
         <Filters
@@ -198,14 +200,18 @@ const Search = () => {
           title="TAGS"
           prefix="tags"
         />
-      </div>
-        <div className="search-input">
+            </div>
+      <div className="search-input">
+              <div className="search-field">
         <TextField id="standard-basic" label="Search for queries..." variant="outlined" margin="normal" fullWidth onChange={handleQueryChange} />
-        <hr />
-        <Results results={data.results} />
+                </div>
+                    <div className="search-results">
+                      <Results results={data.results} />
+                        </div>
       </div>
 
-    </div>
+        </div>
+          </div>
   )
 }
 
