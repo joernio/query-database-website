@@ -80,36 +80,36 @@ const Results = (props) => {
     }).join('\n')
   }
 
-	const options = props.results.map(r => (
-		<div className="search-result">
-		<div><span className="search-result-name">{r.name}</span></div>
-		<div>
-		<h4>{r.title}</h4>
-		<p>
-		{r.description}
-      </p>
+  const options = props.results.map(r => (
+    <div className="search-result">
+      <div><span className="search-result-name">{r.name}</span></div>
+      <div>
+        <h4>{r.title}</h4>
+        <p>
+          {r.description}
+        </p>
         CPGQL Query:
         <Code language="js" code={cleanTraversal(r.traversalAsString)} queryName={r.name} />
         <textarea className="hidden" value={"({" + cleanTraversal(r.traversalAsString) + "}).l"} id={r.name} />
-		</div>
-		<div><span className="search-result-author">author: {r.author}</span></div>
-    <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
-    <CopyButton textAreaId={r.name} />
-		</div>
-	))
+      </div>
+      <div><span className="search-result-author">author: {r.author}</span></div>
+      <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
+      <CopyButton textAreaId={r.name} />
+    </div>
+  ))
 
-	return <div>{options}</div>
+  return <div>{options}</div>
 }
 
 const Search = () => {
   var pluginData = usePluginData('staticcode');
   var itemsJsIdx = itemsjs(pluginData.qdb, {
-      sortings: {
-        name_asc: {
-          field: 'name',
-          order: 'asc'
-        }
-      },
+    sortings: {
+      name_asc: {
+        field: 'name',
+        order: 'asc'
+      }
+    },
     aggregations: {
       tags: {
         title: 'Tags',
@@ -149,7 +149,7 @@ const Search = () => {
   const handleFiltersChange = (selectedItems, prefix) => {
     var checkedTags = [];
     selectedItems.forEach(function(value, key) {
-       checkedTags.push(key.slice().replace(prefix, ""));
+      checkedTags.push(key.slice().replace(prefix, ""));
     })
     var updated = JSON.parse(JSON.stringify(selectedFilters));
     updated[prefix] = checkedTags;
@@ -186,32 +186,31 @@ const Search = () => {
   return (
     <div className="search-wrapper">
       <div className="filler"></div>
-    <div className="search">
-      <div className="search-facets">
-        <Filters
-          tags={data.language}
-          onChange={handleLanguageChange}
-          title="LANGUAGE"
-          prefix="language"
-        />
-        <Filters
-          tags={data.tags}
-          onChange={handleTagChange}
-          title="TAGS"
-          prefix="tags"
-        />
-            </div>
-      <div className="search-input">
-              <div className="search-field">
-        <TextField id="standard-basic" label="Search for queries..." variant="outlined" margin="normal" fullWidth onChange={handleQueryChange} />
-                </div>
-                    <div className="search-results">
-                      <Results results={data.results} />
-                        </div>
-      </div>
-
+      <div className="search">
+        <div className="search-facets">
+          <Filters
+            tags={data.language}
+            onChange={handleLanguageChange}
+            title="LANGUAGE"
+            prefix="language"
+          />
+          <Filters
+            tags={data.tags}
+            onChange={handleTagChange}
+            title="TAGS"
+            prefix="tags"
+          />
         </div>
+        <div className="search-input">
+          <div className="search-field">
+            <TextField id="standard-basic" label="Search for queries..." variant="outlined" margin="normal" fullWidth onChange={handleQueryChange} />
           </div>
+          <div className="search-results">
+            <Results results={data.results} />
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
