@@ -7,6 +7,11 @@
   --ifm-color-primary-lighter: rgb(102, 212, 189);
   --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-code-font-size: 95%;
+  --ifm-font-family-base: 'Helvetica', sans-serif;
+}
+
+h4 {
+  font-family: monospace;
 }
 
 .docusaurus-highlight-code-line {
