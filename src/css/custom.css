@@ -29,6 +29,7 @@ div.search {
 div.search-facets {
   margin: 0 1rem 0 1rem;
   background: #f1f1f1;
+  min-width: 12rem;
 }
 
 div.search-input {
