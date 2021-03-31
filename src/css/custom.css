@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 :root {
+  --joern-theme-primary: #4ec001;
+  --darkmode: #181d18;
+
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: rgb(33, 175, 144);
   --ifm-color-primary-darker: rgb(31, 165, 136);
@@ -10,8 +16,31 @@
   --ifm-font-family-base: 'Helvetica', sans-serif;
 }
 
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2em;
+}
+
 h4 {
   font-family: monospace;
+}
+
+h2 {
+  font-size: 3rem;
+  font-family: 'Space Mono', monospace;
+  color: var(--joern-theme-primary);
+}
+
+.main-card {
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  min-height: 100px;
+  min-width: 200px;
+  margin: 15px;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #000;
+  border-radius: 5px;
 }
 
 .docusaurus-highlight-code-line {
@@ -37,34 +66,35 @@ div.search {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: auto;
+  background: #181D18;
 }
 
 div.search-facets {
   margin: 0rem 1rem 0 1rem;
-  background: #f1f1f1;
+  background: #000;
   min-width: 14rem;
   height: 96vh;
   position: sticky;
   top: 2rem;
+  color: #fff;
 }
 
 div.filler {
   display: block;
   height: 2rem;
-  background: #fff;
+  background: var(--darkmode);
   position: sticky;
   top: 0;
+  z-index: 1;
 }
 
 div.search-field {
   position: sticky;
   top: 2rem;
   display:block;
-  background: #fff;
   margin-bottom: 1rem;
-}
-
-div.search-input {
+  background-color: var(--darkmode);
+  z-index: 1;
 }
 
 input.search {
@@ -73,14 +103,13 @@ input.search {
 }
 
 div.search-result {
-	border: 1px solid #ccc;
-	padding: 1rem;
-	margin-bottom: 1rem;
-	background: #efefef;
+	padding: 2rem;
+	background: #000000;
+  color: white;
 }
 
 span.search-result-name {
-	font-size: 0.7rem;
+	font-size: 2rem;
 }
 
 span.search-result-author {

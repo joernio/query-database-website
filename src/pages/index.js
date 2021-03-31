@@ -8,6 +8,20 @@ import styles from './styles.module.css';
 
 import Search from '@site/src/components/Search'
 
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+
+const joernTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: "#4ec001"
+    },
+    secondary: {
+      main: "#4ec001"
+    }
+  }
+});
+
 function Feature({imageUrl, title, description}) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
@@ -27,6 +41,7 @@ function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
   return (
+    <ThemeProvider theme={joernTheme}>
     <Layout
       title={`${siteConfig.title}`}
       description="Joern Query Database">
@@ -36,6 +51,7 @@ function Home() {
 	  </section>
       </main>
     </Layout>
+    </ThemeProvider>
   );
 }
 
