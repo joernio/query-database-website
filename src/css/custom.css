@@ -1,28 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 :root {
-  --mdc-theme-primary: #4ec001;
-  --mdc-theme-secondary: #018786;
-  --mdc-theme-background: #fff;
-  --mdc-theme-surface: #1b201b;
-  --mdc-theme-error: #b00020;
-  --mdc-theme-on-primary: #fff;
-  --mdc-theme-on-secondary: #fff;
-  --mdc-theme-on-surface: #060606;
-  --mdc-theme-on-error: #fff;
-  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
-  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
-  --mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
-  --mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
-  --mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
-  --mdc-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
-  --mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
-  --mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
-  --mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
-  --mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
-  --mdc-theme-text-primary-on-dark: white;
-  --mdc-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
-  --mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
-  --mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
-  --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
+  --joern-theme-primary: #4ec001;
   --darkmode: #181d18;
 
   --ifm-color-primary: #25c2a0;
@@ -36,6 +16,11 @@
   --ifm-font-family-base: 'Helvetica', sans-serif;
 }
 
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2em;
+}
+
 h4 {
   font-family: monospace;
 }
@@ -43,7 +28,7 @@ h4 {
 h2 {
   font-size: 3rem;
   font-family: 'Space Mono', monospace;
-  color: var(--mdc-theme-primary);
+  color: var(--joern-theme-primary);
 }
 
 .main-card {

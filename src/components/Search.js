@@ -3,7 +3,7 @@ const itemsjs = require('itemsjs');
 import React, { useState }  from 'react';
 import Code from '@site/src/components/Code';
 import {usePluginData} from '@docusaurus/useGlobalData';
-import { Card, TextField } from '@material-ui/core';
+import { Button, Card, TextField } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -93,11 +93,11 @@ const CopyButton = ({ textAreaId }) => {
 
   return (
     <div>
-      <button
-        className="search-result-copy"
+      <Button variant="contained" color="primary"
+        // className="search-result-copy"
         onClick={(e) => handleButtonClick(e, textAreaId)}>
         {buttonText}
-      </button>
+      </Button>
     </div>
   )
 }
