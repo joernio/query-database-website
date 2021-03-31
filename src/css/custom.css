@@ -12,13 +12,12 @@
   --ifm-color-primary-light: rgb(70, 203, 174);
   --ifm-color-primary-lighter: rgb(102, 212, 189);
   --ifm-color-primary-lightest: rgb(146, 224, 208);
-  --ifm-code-font-size: 95%;
+  --ifm-code-font-size: 100%;
   --ifm-font-family-base: 'Helvetica', sans-serif;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.2em;
 }
 
 h4 {
@@ -26,13 +25,13 @@ h4 {
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-family: 'Poppins', sans-serif;
   color: var(--joern-theme-primary);
 }
 
 h2 {
-  font-size: 3rem;
+  font-size: 1.8rem;
   font-family: 'Space Mono', monospace;
   color: var(--joern-theme-primary);
 }
