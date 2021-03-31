@@ -1,4 +1,30 @@
 :root {
+  --mdc-theme-primary: #4ec001;
+  --mdc-theme-secondary: #018786;
+  --mdc-theme-background: #fff;
+  --mdc-theme-surface: #1b201b;
+  --mdc-theme-error: #b00020;
+  --mdc-theme-on-primary: #fff;
+  --mdc-theme-on-secondary: #fff;
+  --mdc-theme-on-surface: #060606;
+  --mdc-theme-on-error: #fff;
+  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-dark: white;
+  --mdc-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
+  --darkmode: #181d18;
+
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: rgb(33, 175, 144);
   --ifm-color-primary-darker: rgb(31, 165, 136);
@@ -12,6 +38,24 @@
 
 h4 {
   font-family: monospace;
+}
+
+h2 {
+  font-size: 3rem;
+  font-family: 'Space Mono', monospace;
+  color: var(--mdc-theme-primary);
+}
+
+.main-card {
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  min-height: 100px;
+  min-width: 200px;
+  margin: 15px;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #000;
+  border-radius: 5px;
 }
 
 .docusaurus-highlight-code-line {
@@ -37,21 +81,23 @@ div.search {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: auto;
+  background: #181D18;
 }
 
 div.search-facets {
   margin: 0rem 1rem 0 1rem;
-  background: #f1f1f1;
+  background: #000;
   min-width: 14rem;
   height: 96vh;
   position: sticky;
   top: 2rem;
+  color: #fff;
 }
 
 div.filler {
   display: block;
   height: 2rem;
-  background: #fff;
+  background: var(--darkmode);
   position: sticky;
   top: 0;
 }
@@ -60,7 +106,6 @@ div.search-field {
   position: sticky;
   top: 2rem;
   display:block;
-  background: #fff;
   margin-bottom: 1rem;
 }
 
@@ -73,14 +118,13 @@ input.search {
 }
 
 div.search-result {
-	border: 1px solid #ccc;
-	padding: 1rem;
-	margin-bottom: 1rem;
-	background: #efefef;
+	padding: 2rem;
+	background: #000000;
+  color: white;
 }
 
 span.search-result-name {
-	font-size: 0.7rem;
+	font-size: 2rem;
 }
 
 span.search-result-author {

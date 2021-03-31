@@ -3,7 +3,7 @@ const itemsjs = require('itemsjs');
 import React, { useState }  from 'react';
 import Code from '@site/src/components/Code';
 import {usePluginData} from '@docusaurus/useGlobalData';
-import { TextField } from '@material-ui/core';
+import { Card, TextField } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -114,21 +114,23 @@ const Results = (props) => {
   }
 
   const options = props.results.map(r => (
-    <div className="search-result">
-      <div><span className="search-result-name">{r.name}</span></div>
-      <div>
-        <h4>{r.title}</h4>
-        <p>
-          {r.description}
-        </p>
-        CPGQL Query:
-        <Code language="js" code={cleanTraversal(r.traversalAsString)} queryName={r.name} />
-        <textarea className="hidden" value={"({" + cleanTraversal(r.traversalAsString) + "}).l"} id={r.name} />
+    <Card className="main-card mdc-elevation--z10">
+      <div className="search-result">
+        <div><h2><span className="search-result-name">{r.name}</span></h2></div>
+        <div>
+          <h4>{r.title}</h4>
+          <p>
+            {r.description}
+          </p>
+          CPGQL Query:
+          <Code language="js" code={cleanTraversal(r.traversalAsString)} queryName={r.name} />
+          <textarea className="hidden" value={"({" + cleanTraversal(r.traversalAsString) + "}).l"} id={r.name} />
+        </div>
+        <div><span className="search-result-author">author: {r.author}</span></div>
+        <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
+        <CopyButton textAreaId={r.name} />
       </div>
-      <div><span className="search-result-author">author: {r.author}</span></div>
-      <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
-      <CopyButton textAreaId={r.name} />
-    </div>
+    </Card>
   ))
 
   return <div>{options}</div>
@@ -220,6 +222,7 @@ const Search = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              color="primary"
               onChange={handleQueryChange} />
           </div>
           <div className="search-results">
