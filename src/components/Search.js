@@ -94,7 +94,7 @@ const CopyButton = ({ textAreaId }) => {
   return (
     <div>
       <Button variant="contained" color="primary"
-        // className="search-result-copy"
+        className="search-result-copy"
         onClick={(e) => handleButtonClick(e, textAreaId)}>
         {buttonText}
       </Button>

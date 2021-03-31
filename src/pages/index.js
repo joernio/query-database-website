@@ -12,6 +12,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 const joernTheme = createMuiTheme({
   palette: {
+    type: 'dark',
     primary: {
       main: "#4ec001"
     },

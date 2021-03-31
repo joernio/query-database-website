@@ -85,6 +85,7 @@ div.filler {
   background: var(--darkmode);
   position: sticky;
   top: 0;
+  z-index: 1;
 }
 
 div.search-field {
@@ -92,9 +93,8 @@ div.search-field {
   top: 2rem;
   display:block;
   margin-bottom: 1rem;
-}
-
-div.search-input {
+  background-color: var(--darkmode);
+  z-index: 1;
 }
 
 input.search {
