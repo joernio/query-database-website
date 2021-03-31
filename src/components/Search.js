@@ -48,7 +48,7 @@ const ShinyFilters = ({ filters, onChange }) => {
   return (
     <div>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Language</FormLabel>
+        <FormLabel component="legend"><h3>Language</h3></FormLabel>
         <FormGroup>
           {Object.entries(actualData.language).map(entry =>(
             <FormControlLabel
@@ -60,7 +60,7 @@ const ShinyFilters = ({ filters, onChange }) => {
       </FormControl>
 
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Tags</FormLabel>
+        <FormLabel component="legend"><h3>Tags</h3></FormLabel>
         <FormGroup>
           {Object.entries(actualData.tags).map(entry =>(
             <FormControlLabel
