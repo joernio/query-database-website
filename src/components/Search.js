@@ -106,6 +106,7 @@ const Results = (props) => {
   const cleanTraversal = (traversalAsString) => {
     const lines = traversalAsString.split('\n')
     lines.shift()
+    lines.shift()
     const whitespacePrefix = lines[0].match(/^\s*/)[0]
     const replace = new RegExp("^" + whitespacePrefix, "g")
     return lines.map(function(line) {
@@ -123,8 +124,8 @@ const Results = (props) => {
             {r.description}
           </p>
           CPGQL Query:
-          <Code language="js" code={cleanTraversal(r.traversalAsString)} queryName={r.name} />
-          <textarea className="hidden" value={"({" + cleanTraversal(r.traversalAsString) + "}).l"} id={r.name} />
+          <Code language="js" code={cleanTraversal(r.traversalAsString) + ".l"} queryName={r.name} />
+          <textarea className="hidden" value={ cleanTraversal(r.traversalAsString) + ".l"} id={r.name} />
         </div>
         <div><span className="search-result-author">author: {r.author}</span></div>
         <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
