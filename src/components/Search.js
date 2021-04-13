@@ -103,15 +103,15 @@ const CopyButton = ({ textAreaId }) => {
 }
 
 const Results = (props) => {
-  const cleanTraversal = (traversalAsString) => {
+  const formatTraversal = (traversalAsString) => {
     const lines = traversalAsString.split('\n')
-    lines.shift()
     lines.shift()
     const whitespacePrefix = lines[0].match(/^\s*/)[0]
     const replace = new RegExp("^" + whitespacePrefix, "g")
-    return lines.map(function(line) {
+    const clean = lines.map(function(line) {
       return line.replace(replace, "")
     }).join('\n')
+    return "({" + clean + "}).l"
   }
 
   const options = props.results.map(r => (
@@ -124,8 +124,8 @@ const Results = (props) => {
             {r.description}
           </p>
           CPGQL Query:
-          <Code language="js" code={cleanTraversal(r.traversalAsString) + ".l"} queryName={r.name} />
-          <textarea className="hidden" value={ cleanTraversal(r.traversalAsString) + ".l"} id={r.name} />
+          <Code language="js" code={ formatTraversal(r.traversalAsString) } queryName={r.name} />
+          <textarea className="hidden" value={ formatTraversal(r.traversalAsString) } id={r.name} />
         </div>
         <div><span className="search-result-author">author: {r.author}</span></div>
         <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
@@ -161,14 +161,16 @@ const Search = () => {
     searchableFields: ['name', 'title', 'description', 'tags']
   });
 
-  const initialAggregations = itemsJsIdx.search({per_page: 100}).data.aggregations;
+  const initialSearch = itemsJsIdx.search({per_page: 100, sort: 'name_asc'}).data;
+
+  const initialAggregations = initialSearch.aggregations;
   const initialFilters = {
     language: initialAggregations.language.buckets.map((x) => { return x.key }),
     tags: initialAggregations.tags.buckets.map((x) => { return x.key }),
   }
 
   const [data, setData] = useState({
-    results: pluginData.qdb,
+    results: initialSearch.items,
   });
   const [selectedFilters, setSelectedFilters] = useState({language: [], tags: []});
   const [searchQuery, setSearchQuery] = useState('');
@@ -183,7 +185,7 @@ const Search = () => {
       per_page: 100,
       sort: 'name_asc',
       query: searchQuery,
-      filters: filterSelection
+      filters: filterSelection,
     }
     const result = itemsJsIdx.search(searchOptions);
     setData({
