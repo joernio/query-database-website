@@ -1,4 +1,6 @@
 const fs = require('fs');
+const Prism = require('prismjs');
+const parse = require('html-react-parser')
 
 module.exports = function (context, options) {
   const formatTraversal = (traversalAsString) => {
@@ -24,8 +26,14 @@ module.exports = function (context, options) {
         result.formattedTraversal = formatTraversal(e.traversalAsString);
         return result;
       });
+      const withHighlightedTraversal = withFormattedTraversal.map(t => {
+        let result = t;
+        const html = Prism.highlight(t.formattedTraversal, Prism.languages.javascript, 'javascript');
+        result.highlightedTraversal = html;
+        return result;
+      });
 
-      content.qdb = withFormattedTraversal;
+      content.qdb = withHighlightedTraversal;
 
       return content;
     },

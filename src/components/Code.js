@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
 import "prismjs/themes/prism-tomorrow.css";
-import Prism from "prismjs";
+import parse from 'html-react-parser';
 
-export default function Code({ code, language }) {
-  useEffect(() => {
-    Prism.highlightAll();
-  }, []);
-
+export default function Code({ highlightedCode, language }) {
   return (
     <div className="code">
       <pre>
-        <code className={`language-${language}`}>{code}</code>
+        <code>{parse(highlightedCode)}</code>
       </pre>
     </div>
   );
