@@ -12,6 +12,7 @@
   --ifm-color-primary-light: rgb(70, 203, 174);
   --ifm-color-primary-lighter: rgb(102, 212, 189);
   --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-pre-background: #2d2d2d;
   --ifm-code-font-size: 100%;
   --ifm-font-family-base: 'Helvetica', sans-serif;
 }
@@ -131,6 +132,10 @@ span.search-result-tags {
 
 div.search-filter {
   margin-top: 1rem;
+}
+
+pre code {
+  color: #ccc;
 }
 
 a.search-filter-selected {
