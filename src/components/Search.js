@@ -177,16 +177,19 @@ const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleQueryChange = (e) => {
-    triggerSearch(e.target.value, selectedFilters)
-    setSearchQuery(e.target.value)
+    const updatedQuery = e.target.value.slice(0);
+    triggerSearch(updatedQuery, selectedFilters)
+    setSearchQuery(updatedQuery)
   }
 
   const triggerSearch = (query, filterSelection) => {
-    const searchOptions = {
+    let searchOptions = {
       per_page: 100,
       sort: 'name_asc',
-      query: searchQuery,
       filters: filterSelection,
+    }
+    if (typeof query !== 'undefined' && query.length > 0) {
+      searchOptions['query'] = query;
     }
     const result = itemsJsIdx.search(searchOptions);
     setData({
