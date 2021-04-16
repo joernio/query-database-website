@@ -107,6 +107,10 @@ input.search {
 	height: 40px;
 }
 
+div.search-results {
+  min-height:  200rem;
+}
+
 div.search-result {
 	padding: 2rem;
 	background: #000000;
