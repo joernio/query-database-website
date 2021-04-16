@@ -12,6 +12,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
+import Prism from "prismjs";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -191,6 +192,12 @@ const Search = () => {
     setData({
       results: result.data.items,
     })
+
+    // TODO: replace
+    // PrismJS does not trigger a highlight event at all times when the results
+    // displayed are changed, so we force one with a delay. An obviously hacky
+    // solution which should be replaced.
+    setTimeout(function() { Prism.highlightAll(); }, 50);
   }
 
   const onShinyFilterChange = (state) => {
