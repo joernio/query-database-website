@@ -106,18 +106,8 @@ const CopyButton = ({ textAreaId }) => {
 }
 
 const Results = (props) => {
-  const formatTraversal = (traversalAsString) => {
-    const lines = traversalAsString.split('\n')
-    lines.shift()
-    const whitespacePrefix = lines[0].match(/^\s*/)[0]
-    const replace = new RegExp("^" + whitespacePrefix, "g")
-    const clean = lines.map(function(line) {
-      return line.replace(replace, "")
-    }).join('\n')
-    return "({" + clean + "}).l"
-  }
-
-  const options = props.results.map(r => (
+  const options = props.results.map(r => {
+    return (
     <Card className="main-card mdc-elevation--z10" key={r.name} >
       <div className="search-result">
         <div><h2><span className="search-result-name">{r.name}</span></h2></div>
@@ -127,15 +117,15 @@ const Results = (props) => {
             {r.description}
           </p>
           CPGQL Query:
-          <Code language="js" code={ formatTraversal(r.traversalAsString) } queryName={r.name} />
-          <textarea readOnly className="hidden" value={ formatTraversal(r.traversalAsString) } id={r.name} />
+          <Code language="js" code={ r.formattedTraversal } queryName={r.name} />
+          <textarea readOnly className="hidden" value={ r.formattedTraversal } id={r.name} />
         </div>
         <div><span className="search-result-author">author: {r.author}</span></div>
         <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
         <CopyButton textAreaId={r.name} />
       </div>
     </Card>
-  ))
+  )})
 
   return <div>{options}</div>
 }
