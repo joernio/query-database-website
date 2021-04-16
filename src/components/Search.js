@@ -53,6 +53,7 @@ const ShinyFilters = ({ filters, onChange }) => {
         <FormGroup>
           {Object.entries(actualData.language).map(entry =>(
             <FormControlLabel
+              key={entry[0]}
               control={<Checkbox checked={language[entry[0]]} onChange={handleLanguageChange} name={entry[0]} />}
               label={entry[0]}
             />
@@ -65,6 +66,7 @@ const ShinyFilters = ({ filters, onChange }) => {
         <FormGroup>
           {Object.entries(actualData.tags).map(entry =>(
             <FormControlLabel
+              key={entry[0]}
               control={<Checkbox checked={tags[entry[0]]} onChange={handleChange} name={entry[0]} />}
               label={entry[0]}
             />
@@ -116,7 +118,7 @@ const Results = (props) => {
   }
 
   const options = props.results.map(r => (
-    <Card className="main-card mdc-elevation--z10">
+    <Card className="main-card mdc-elevation--z10" key={r.name} >
       <div className="search-result">
         <div><h2><span className="search-result-name">{r.name}</span></h2></div>
         <div>
@@ -126,7 +128,7 @@ const Results = (props) => {
           </p>
           CPGQL Query:
           <Code language="js" code={ formatTraversal(r.traversalAsString) } queryName={r.name} />
-          <textarea className="hidden" value={ formatTraversal(r.traversalAsString) } id={r.name} />
+          <textarea readOnly className="hidden" value={ formatTraversal(r.traversalAsString) } id={r.name} />
         </div>
         <div><span className="search-result-author">author: {r.author}</span></div>
         <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
