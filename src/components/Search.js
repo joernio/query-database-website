@@ -147,7 +147,7 @@ const MatchingExample = ({ positiveExample, negativeExample}) => {
 
 const Results = (props) => {
   const options = props.results.map(r => {
-    const hasMatchingExample = r.positiveExample || r.negativeExample;
+    const hasMatchingExample = r.positiveExampleHighlighted || r.negativeExampleHighlighted;
 
     return (
     <Card className="main-card mdc-elevation--z10" key={r.name} >
@@ -167,7 +167,10 @@ const Results = (props) => {
         <CopyButton textAreaId={r.name} />
 
         { hasMatchingExample &&
-          <MatchingExample positiveExample={ r.positiveExample } negativeExample={ r.negativeExample } />
+          <MatchingExample
+            positiveExample={ r.positiveExampleHighlighted }
+            negativeExample={ r.negativeExampleHighlighted }
+            />
         }
       </div>
     </Card>
