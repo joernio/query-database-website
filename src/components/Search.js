@@ -116,7 +116,7 @@ const Results = (props) => {
             {r.description}
           </p>
           CPGQL Query:
-          <Code language="js" highlightedCode={ r.highlightedTraversal } queryName={r.name} />
+          <Code language="js" highlightedCode={ r.highlightedTraversal } />
           <textarea readOnly className="hidden" value={ r.formattedTraversal } id={r.name} />
         </div>
         <div><span className="search-result-author">author: {r.author}</span></div>
