@@ -3,6 +3,22 @@ const Prism = require('prismjs');
 const parse = require('html-react-parser')
 
 module.exports = function (context, options) {
+  const padWithNewlines = (first, second) => {
+    const firstCount = first.split("\n").length;
+    const secondCount = second.split("\n").length;
+
+    var firstPadded = first.slice();
+    var secondPadded = second.slice();
+
+    if (firstCount > secondCount) {
+      secondPadded = secondPadded.concat("\n".repeat(firstCount - secondCount));
+    } else if (secondCount > firstCount) {
+      firstPadded = firstPadded.concat("\n".repeate(secondCount - firstCount));
+    }
+
+    return {first: firstPadded, second: secondPadded};
+  }
+
   const formatTraversal = (traversalAsString) => {
     const lines = traversalAsString.split('\n')
     lines.shift()
@@ -33,7 +49,26 @@ module.exports = function (context, options) {
         return result;
       });
 
-      content.qdb = withHighlightedTraversal;
+      const withHighlightedExamples = withHighlightedTraversal.map(e => {
+        const hasBothExamples = typeof e.positiveExample != 'undefined' && typeof e.negativeExample != 'undefined';
+        if (!hasBothExamples) {
+          return e;
+        }
+        var result = e;
+
+        var positiveExample = e.positiveExample.slice();
+        var negativeExample = e.negativeExample.slice();
+        if (hasBothExamples) {
+          const padded = padWithNewlines(positiveExample, negativeExample);
+          positiveExample = padded.first;
+          negativeExample = padded.second;
+        }
+        result.positiveExampleHighlighted = Prism.highlight(positiveExample, Prism.languages.javascript, 'javascript');
+        result.negativeExampleHighlighted = Prism.highlight(negativeExample, Prism.languages.javascript, 'javascript');
+        return result;
+      });
+
+      content.qdb = withHighlightedExamples;
 
       return content;
     },

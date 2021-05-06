@@ -102,10 +102,53 @@ const CopyButton = ({ textAreaId }) => {
       </Button>
     </div>
   )
-}
+};
+
+const MatchingExample = ({ positiveExample, negativeExample}) => {
+  const buttonTextShow = "SHOW MATCHING EXAMPLES"
+  const buttonTextHide = "HIDE MATCHING EXAMPLES"
+
+  const [text, setText] = useState(buttonTextShow);
+  const [hidden, setHidden] = useState(true);
+
+  const handleButtonClick = (e) => {
+    setHidden(!hidden)
+    if (hidden) {
+      setText(buttonTextHide)
+    } else {
+      setText(buttonTextShow)
+    }
+  }
+
+  return (
+    <div className="search-matching-examples">
+      <div className="search-matching-examples-btns">
+        <Button className="btn-matching-examples" variant="contained" onClick={handleButtonClick}>{text}</Button>
+      </div>
+      { !hidden &&
+      <div className="search-matching-examples-code">
+        { positiveExample &&
+        <div className="search-matching-examples-code-first">
+          <span>the query matches:</span>
+          <Code language="java" highlightedCode={ positiveExample } />
+        </div>
+        }
+        { negativeExample &&
+          <div className="search-matching-examples-code-second">
+            <span>the query does not match:</span>
+            <Code language="java" highlightedCode={ negativeExample } />
+          </div>
+        }
+      </div>
+      }
+    </div>
+  )
+};
 
 const Results = (props) => {
   const options = props.results.map(r => {
+    const hasMatchingExample = r.positiveExampleHighlighted || r.negativeExampleHighlighted;
+
     return (
     <Card className="main-card mdc-elevation--z10" key={r.name} >
       <div className="search-result">
@@ -116,12 +159,19 @@ const Results = (props) => {
             {r.description}
           </p>
           CPGQL Query:
-          <Code language="js" highlightedCode={ r.highlightedTraversal } queryName={r.name} />
+          <Code language="js" highlightedCode={ r.highlightedTraversal } />
           <textarea readOnly className="hidden" value={ r.formattedTraversal } id={r.name} />
         </div>
         <div><span className="search-result-author">author: {r.author}</span></div>
         <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
         <CopyButton textAreaId={r.name} />
+
+        { hasMatchingExample &&
+          <MatchingExample
+            positiveExample={ r.positiveExampleHighlighted }
+            negativeExample={ r.negativeExampleHighlighted }
+            />
+        }
       </div>
     </Card>
   )})
