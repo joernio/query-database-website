@@ -102,10 +102,53 @@ const CopyButton = ({ textAreaId }) => {
       </Button>
     </div>
   )
-}
+};
+
+const MatchingExample = ({ positiveExample, negativeExample}) => {
+  const buttonTextShow = "SHOW MATCHING EXAMPLES"
+  const buttonTextHide = "HIDE MATCHING EXAMPLES"
+
+  const [text, setText] = useState(buttonTextShow);
+  const [hidden, setHidden] = useState(true);
+
+  const handleButtonClick = (e) => {
+    setHidden(!hidden)
+    if (hidden) {
+      setText(buttonTextHide)
+    } else {
+      setText(buttonTextShow)
+    }
+  }
+
+  return (
+    <div className="search-matching-examples">
+      <div className="search-matching-examples-btns">
+        <Button className="btn-matching-examples" variant="contained" color="secondary" onClick={handleButtonClick}>{text}</Button>
+      </div>
+      { !hidden &&
+      <div className="search-matching-examples-code">
+        { positiveExample &&
+        <div className="search-matching-examples-code-first">
+          <span>the query matches:</span>
+          <Code language="java" highlightedCode={ positiveExample } />
+        </div>
+        }
+        { negativeExample &&
+          <div className="search-matching-examples-code-second">
+            <span>the query does not match:</span>
+            <Code language="java" highlightedCode={ negativeExample } />
+          </div>
+        }
+      </div>
+      }
+    </div>
+  )
+};
 
 const Results = (props) => {
   const options = props.results.map(r => {
+    const hasMatchingExample = r.positiveExample || r.negativeExample;
+
     return (
     <Card className="main-card mdc-elevation--z10" key={r.name} >
       <div className="search-result">
@@ -122,6 +165,10 @@ const Results = (props) => {
         <div><span className="search-result-author">author: {r.author}</span></div>
         <div><span className="search-result-tags">tags: {r.tags.join(',')}</span></div>
         <CopyButton textAreaId={r.name} />
+
+        { hasMatchingExample &&
+          <MatchingExample positiveExample={ r.positiveExample } negativeExample={ r.negativeExample } />
+        }
       </div>
     </Card>
   )})
