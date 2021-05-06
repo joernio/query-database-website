@@ -123,7 +123,7 @@ const MatchingExample = ({ positiveExample, negativeExample}) => {
   return (
     <div className="search-matching-examples">
       <div className="search-matching-examples-btns">
-        <Button className="btn-matching-examples" variant="contained" color="secondary" onClick={handleButtonClick}>{text}</Button>
+        <Button className="btn-matching-examples" variant="contained" onClick={handleButtonClick}>{text}</Button>
       </div>
       { !hidden &&
       <div className="search-matching-examples-code">
