@@ -13,7 +13,7 @@ module.exports = function (context, options) {
     if (firstCount > secondCount) {
       secondPadded = secondPadded.concat("\n".repeat(firstCount - secondCount));
     } else if (secondCount > firstCount) {
-      firstPadded = firstPadded.concat("\n".repeate(secondCount - firstCount));
+      firstPadded = firstPadded.concat("\n".repeat(secondCount - firstCount));
     }
 
     return {first: firstPadded, second: secondPadded};
