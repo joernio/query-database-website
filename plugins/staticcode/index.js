@@ -44,6 +44,21 @@ module.exports = function (context, options) {
       });
       const withHighlightedTraversal = withFormattedTraversal.map(t => {
         let result = t;
+        let codeExamples = result.codeExamples
+        if (typeof codeExamples != 'undefined'
+          && codeExamples.positive != 'undefined'
+          && Array.isArray(codeExamples.positive)
+          && typeof codeExamples.positive[0] != 'undefined') {
+          let pos = codeExamples.positive[0];
+            result.positiveExample = pos.replace(/^\s*\n/gm, "");
+        }
+        if (typeof codeExamples != 'undefined'
+          && typeof codeExamples.negative != 'undefined'
+          && Array.isArray(codeExamples.positive)
+          && typeof codeExamples.negative[0] != 'undefined') {
+          let neg = codeExamples.negative[0];
+            result.negativeExample = neg.replace(/^\s*\n/gm, "");
+        }
         const html = Prism.highlight(t.formattedTraversal, Prism.languages.javascript, 'javascript');
         result.highlightedTraversal = html;
         return result;
