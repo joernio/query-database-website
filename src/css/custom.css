@@ -180,3 +180,10 @@ div.search-matching-examples-code-first {
 div.search-matching-examples-code-second {
   padding: 1rem;
 }
+
+div.contribute {
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

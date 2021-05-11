@@ -261,6 +261,7 @@ const Search = () => {
       <div className="search">
         <div className="search-facets">
           <ShinyFilters filters={initialFilters} onChange={onShinyFilterChange} />
+          <div class="contribute">Contribute to the Joern Query Database on GitHub:<br /><a href="https://github.com/joernio/query-database">https://github.com/joernio/query-database</a></div>
         </div>
         <div className="search-input">
           <div className="search-field">
