@@ -109,7 +109,7 @@ const MatchingExample = ({ positiveExample, negativeExample}) => {
   const buttonTextHide = "HIDE MATCHING EXAMPLES"
 
   const [text, setText] = useState(buttonTextShow);
-  const [hidden, setHidden] = useState(true);
+  const [hidden, setHidden] = useState(false);
 
   const handleButtonClick = (e) => {
     setHidden(!hidden)
